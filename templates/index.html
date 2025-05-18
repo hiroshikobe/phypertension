@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head><title>肺高血圧症診断ツール</title></head>
+<body>
+  <h1>肺高血圧症 診断フォーム</h1>
+  <form method="POST" action="/result">
+    FVC (L): <input type="number" step="0.01" name="fvc"><br>
+    DLco (%): <input type="number" step="0.1" name="dlco"><br>
+    mPAP (mmHg): <input type="number" step="0.1" name="mpap"><br>
+    PAWP (mmHg): <input type="number" step="0.1" name="pawp"><br>
+    CO (L/min): <input type="number" step="0.1" name="co"><br>
+    <input type="submit" value="診断する">
+  </form>
+</body>
+</html>
