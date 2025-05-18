@@ -1,11 +1,62 @@
 <!DOCTYPE html>
 <html>
-<head><title>診断結果</title></head>
+<head>
+  <meta charset="UTF-8">
+  <title>分類結果</title>
+</head>
 <body>
-  <h1>診断結果</h1>
-  <p>分類: {{ classification }}</p>
-  <p>推奨治療: {{ treatment }}</p>
+  <h1>分類結果</h1>
+  <p><strong>WSPH分類：</strong>{{ group }}</p>
+  <p><strong>分類の根拠：</strong>{{ reason }}</p>
+
+  <h2>計算値</h2>
   <p>PVR: {{ pvr }} Wood単位</p>
+  {% if spap %}<p>sPAP（推定収縮期肺動脈圧）: {{ spap }} mmHg</p>{% endif %}
+
+  <h2>入力された主要データ</h2>
+  <ul>
+    <li>mPAP: {{ mpap }} mmHg</li>
+    <li>PAWP: {{ pawp }} mmHg</li>
+    <li>CO: {{ co }} L/min</li>
+    <li>CI: {{ ci }} L/min/m²</li>
+    <li>%FVC: {{ fvc }}%</li>
+    <li>%FEV1: {{ fev1 }}%</li>
+    <li>FEV1%: {{ fev1p }}%</li>
+    <li>%DLco: {{ dlco }}%</li>
+    <li>%DLco/VA: {{ dlco_va }}%</li>
+  </ul>
+
+  <h2>CT所見</h2>
+  <ul>
+    {% for item in ct_findings %}<li>{{ item }}</li>{% endfor %}
+  </ul>
+
+  <h2>合併疾患・背景因子</h2>
+  <ul>
+    {% for item in comorbid %}<li>{{ item }}</li>{% endfor %}
+  </ul>
+
+  <h2>推奨治療</h2>
+  {% if group.startswith('第1群') %}
+    <p><strong>推奨文：</strong>ERAまたはPDE-5阻害薬による単剤療法が推奨される（CQ1）。</p>
+    <p><strong>解説：</strong>前毛細血管性PH（PAH）では肺血管拡張薬の単剤療法が第一選択。重症度や併存疾患に応じて選択する。</p>
+    <p><strong>代表的臨床試験（SERAPHIN試験）要約：</strong>マシテンタンはPAH患者において疾患進行と入院リスクを有意に低下させた。PVRと6MWDにも良好な効果を示した。</p>
+  {% elif group.startswith('第2群') %}
+    <p><strong>推奨文：</strong>左心不全の管理が最優先であり、PHに対する肺血管拡張薬の使用は推奨されない（CQ5）。</p>
+    <p><strong>解説：</strong>左心負荷に起因するPHでは、肺血管拡張薬が悪化要因となる場合があるため禁忌とされている。</p>
+  {% elif group.startswith('第3群') %}
+    <p><strong>推奨文：</strong>基礎疾患である肺疾患の管理が重要であり、肺血管拡張薬の使用は慎重に検討される（CQ6）。</p>
+    <p><strong>解説：</strong>COPDやILD由来のPHでは、原疾患の増悪や換気血流ミスマッチの懸念があり、PH治療薬の効果は限定的。</p>
+    <p><strong>臨床試験（INCREASE試験）要約：</strong>トレプロスチニル吸入薬はILD合併PH患者で6MWDと時間的予後指標の改善を示したが、広範な導入は慎重に判断すべき。</p>
+  {% elif group.startswith('第4群') %}
+    <p><strong>推奨文：</strong>CTEPHに対してはバルーン肺動脈形成術やリオシグアトが推奨される（CQ8）。</p>
+    <p><strong>解説：</strong>血栓性PHでは外科的介入または内服薬（sGC刺激薬）による介入が長期予後を改善する。</p>
+    <p><strong>臨床試験（CHEST-1試験）要約：</strong>リオシグアトはCTEPH患者における6MWDとPVRの有意な改善を示した。再発防止にも有用とされる。</p>
+  {% else %}
+    <p>治療推奨の対象外または明確な方針がない分類です。</p>
+  {% endif %}
+
+  <br>
   <a href="/">戻る</a>
 </body>
 </html>
