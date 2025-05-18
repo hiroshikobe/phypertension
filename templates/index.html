@@ -1,15 +1,69 @@
 <!DOCTYPE html>
 <html>
-<head><title>肺高血圧症診断ツール</title></head>
+<head>
+  <meta charset="UTF-8">
+  <title>肺高血圧分類ツール</title>
+</head>
 <body>
-  <h1>肺高血圧症 診断フォーム</h1>
+  <h1>肺高血圧症 入力フォーム</h1>
   <form method="POST" action="/result">
-    FVC (L): <input type="number" step="0.01" name="fvc"><br>
-    DLco (%): <input type="number" step="0.1" name="dlco"><br>
-    mPAP (mmHg): <input type="number" step="0.1" name="mpap"><br>
-    PAWP (mmHg): <input type="number" step="0.1" name="pawp"><br>
-    CO (L/min): <input type="number" step="0.1" name="co"><br>
-    <input type="submit" value="診断する">
+    <h2>① 血行動態</h2>
+    mPAP: <input type="number" step="0.1" name="mpap" required><br>
+    PAWP: <input type="number" step="0.1" name="pawp" required><br>
+    CO: <input type="number" step="0.1" name="co" required><br>
+    CI: <input type="number" step="0.1" name="ci" required><br>
+
+    <h2>② 肺機能検査</h2>
+    %FVC: <input type="number" step="0.1" name="fvc" required><br>
+    %FEV1: <input type="number" step="0.1" name="fev1" required><br>
+    FEV1%: <input type="number" step="0.1" name="fev1p" required><br>
+    %DLco: <input type="number" step="0.1" name="dlco" required><br>
+    %DLco/VA: <input type="number" step="0.1" name="dlco_va" required><br>
+
+    <h2>③ 胸部CT所見</h2>
+    <input type="checkbox" name="ct_findings" value="気腫">気腫<br>
+    <input type="checkbox" name="ct_findings" value="軽微な間質陰影">軽微な間質陰影<br>
+    <input type="checkbox" name="ct_findings" value="広範な間質陰影">広範な間質陰影<br>
+    <input type="checkbox" name="ct_findings" value="蜂巣肺">蜂巣肺<br>
+    <input type="checkbox" name="ct_findings" value="肺動脈径拡張">肺動脈径拡張（主肺動脈径＞29mm or PA/Ao比＞1）<br>
+    <input type="checkbox" name="ct_findings" value="すべて無し">すべて無し<br>
+
+    <h2>④ 心エコーとその他検査（空欄可）</h2>
+    TRV: <input type="number" step="0.1" name="trv"><br>
+    右室径: <input type="number" step="0.1" name="rv_diam"><br>
+    TAPSE: <input type="number" step="0.1" name="tapse"><br>
+    IVC径: <input type="number" step="0.1" name="ivc_diam"><br>
+    吸気時虚脱 <50%: <select name="ivc_collapsibility">
+      <option value="">未選択</option>
+      <option value="あり">あり</option>
+      <option value="なし">なし</option>
+    </select><br>
+    D-shape（短軸像）: <select name="d_shape">
+      <option value="">未選択</option>
+      <option value="あり">あり</option>
+      <option value="なし">なし</option>
+    </select><br>
+
+    <h2>NT-proBNP</h2>
+    <input type="number" name="ntprobnp"><br>
+
+    <h2>6分間歩行試験（6MWD）</h2>
+    歩行距離(m): <input type="number" name="walk_distance"><br>
+    開始時SpO₂(%): <input type="number" step="0.1" name="spo2_start"><br>
+    最低SpO₂(%): <input type="number" step="0.1" name="spo2_min"><br>
+
+    <h2>動脈血ガス</h2>
+    PaO₂(mmHg): <input type="number" step="0.1" name="pao2"><br>
+    酸素流量(L/min): <input type="number" step="0.1" name="o2_flow"><br>
+
+    <h2>⑤ 合併疾患・背景因子</h2>
+    <input type="checkbox" name="comorbid" value="膠原病">膠原病<br>
+    <input type="checkbox" name="comorbid" value="COPD">COPD<br>
+    <input type="checkbox" name="comorbid" value="間質性肺炎">間質性肺炎<br>
+    <input type="checkbox" name="comorbid" value="左心不全">左心不全<br>
+    <input type="checkbox" name="comorbid" value="肺血栓塞栓症">肺血栓塞栓症<br>
+
+    <br><input type="submit" value="分類を判定">
   </form>
 </body>
 </html>
