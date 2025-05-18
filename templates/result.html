@@ -12,6 +12,10 @@
   <h2>計算値</h2>
   <p>PVR: {{ pvr }} Wood単位</p>
   {% if spap %}<p>sPAP（推定収縮期肺動脈圧）: {{ spap }} mmHg</p>{% endif %}
+  {% if rap %}<p>推定RAP: {{ rap }} mmHg</p>{% endif %}
+  {% if collapsibility_ratio is not none %}
+    <p>IVC虚脱率: {{ collapsibility_ratio }}（{{ ivc_collapsibility }}）</p>
+  {% endif %}
 
   <h2>入力された主要データ</h2>
   <ul>
@@ -28,12 +32,16 @@
 
   <h2>CT所見</h2>
   <ul>
-    {% for item in ct_findings %}<li>{{ item }}</li>{% endfor %}
+    {% for item in ct_findings %}
+      <li>{{ item }}</li>
+    {% endfor %}
   </ul>
 
   <h2>合併疾患・背景因子</h2>
   <ul>
-    {% for item in comorbid %}<li>{{ item }}</li>{% endfor %}
+    {% for item in comorbid %}
+      <li>{{ item }}</li>
+    {% endfor %}
   </ul>
 
   <h2>推奨治療</h2>
