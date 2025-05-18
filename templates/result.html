@@ -1,70 +1,66 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="UTF-8">
-  <title>分類結果</title>
-</head>
-<body>
-  <h1>分類結果</h1>
-  <p><strong>WSPH分類：</strong>{{ group }}</p>
-  <p><strong>分類の根拠：</strong>{{ reason }}</p>
-
-  <h2>計算値</h2>
-  <p>PVR: {{ pvr }} Wood単位</p>
-  {% if spap %}<p>sPAP（推定収縮期肺動脈圧）: {{ spap }} mmHg</p>{% endif %}
-  {% if rap %}<p>推定RAP: {{ rap }} mmHg</p>{% endif %}
-  {% if collapsibility_ratio is not none %}
-    <p>IVC虚脱率: {{ collapsibility_ratio }}（{{ ivc_collapsibility }}）</p>
-  {% endif %}
-
-  <h2>入力された主要データ</h2>
-  <ul>
-    <li>mPAP: {{ mpap }} mmHg</li>
-    <li>PAWP: {{ pawp }} mmHg</li>
-    <li>CO: {{ co }} L/min</li>
-    <li>CI: {{ ci }} L/min/m²</li>
-    <li>%FVC: {{ fvc }}%</li>
-    <li>%FEV1: {{ fev1 }}%</li>
-    <li>FEV1%: {{ fev1p }}%</li>
-    <li>%DLco: {{ dlco }}%</li>
-    <li>%DLco/VA: {{ dlco_va }}%</li>
-  </ul>
-
-  <h2>CT所見</h2>
-  <ul>
-    {% for item in ct_findings %}
-      <li>{{ item }}</li>
-    {% endfor %}
-  </ul>
-
-  <h2>合併疾患・背景因子</h2>
-  <ul>
-    {% for item in comorbid %}
-      <li>{{ item }}</li>
-    {% endfor %}
-  </ul>
-
+{% if group.startswith('第1群') %}
   <h2>推奨治療</h2>
-  {% if group.startswith('第1群') %}
-    <p><strong>推奨文：</strong>ERAまたはPDE-5阻害薬による単剤療法が推奨される（CQ1）。</p>
-    <p><strong>解説：</strong>前毛細血管性PH（PAH）では肺血管拡張薬の単剤療法が第一選択。重症度や併存疾患に応じて選択する。</p>
-    <p><strong>代表的臨床試験（SERAPHIN試験）要約：</strong>マシテンタンはPAH患者において疾患進行と入院リスクを有意に低下させた。PVRと6MWDにも良好な効果を示した。</p>
-  {% elif group.startswith('第2群') %}
-    <p><strong>推奨文：</strong>左心不全の管理が最優先であり、PHに対する肺血管拡張薬の使用は推奨されない（CQ5）。</p>
-    <p><strong>解説：</strong>左心負荷に起因するPHでは、肺血管拡張薬が悪化要因となる場合があるため禁忌とされている。</p>
-  {% elif group.startswith('第3群') %}
-    <p><strong>推奨文：</strong>基礎疾患である肺疾患の管理が重要であり、肺血管拡張薬の使用は慎重に検討される（CQ6）。</p>
-    <p><strong>解説：</strong>COPDやILD由来のPHでは、原疾患の増悪や換気血流ミスマッチの懸念があり、PH治療薬の効果は限定的。</p>
-    <p><strong>臨床試験（INCREASE試験）要約：</strong>トレプロスチニル吸入薬はILD合併PH患者で6MWDと時間的予後指標の改善を示したが、広範な導入は慎重に判断すべき。</p>
-  {% elif group.startswith('第4群') %}
-    <p><strong>推奨文：</strong>CTEPHに対してはバルーン肺動脈形成術やリオシグアトが推奨される（CQ8）。</p>
-    <p><strong>解説：</strong>血栓性PHでは外科的介入または内服薬（sGC刺激薬）による介入が長期予後を改善する。</p>
-    <p><strong>臨床試験（CHEST-1試験）要約：</strong>リオシグアトはCTEPH患者における6MWDとPVRの有意な改善を示した。再発防止にも有用とされる。</p>
-  {% else %}
-    <p>治療推奨の対象外または明確な方針がない分類です。</p>
-  {% endif %}
+  <p><strong>推奨文：</strong>ERA（アンブリセンタンなど）やPDE-5阻害薬（リオシグアトなど）による肺血管拡張療法が推奨される（CQ1: 推奨度A, CQ2: 推奨度A）。</p>
+  <ul>
+    <li>在宅酸素療法（必要時）</li>
+    <li>ERA（アンブリセンタン）</li>
+    <li>PDE5阻害薬（リオシグアト）</li>
+    <li>呼吸リハビリテーション</li>
+  </ul>
+  <p><strong>解説：</strong>PAH（第1群）では前毛細血管性PHが対象であり、肺血管拡張薬（ERAやPDE-5阻害薬）が一次治療として推奨される。低酸素血症を伴う場合は酸素療法、活動耐容能低下に対してはリハビリも考慮される。</p>
+  <p><strong>臨床試験概要：</strong><br>
+    <u>SERAPHIN試験（マシテンタン）</u>：PAH患者742例を対象とした無作為化比較試験で、マシテンタン10mg群は主要複合エンドポイント（死亡または疾患進行）のリスクを45%低下させた。長期予後改善を示し、PVR・6MWD・NT-proBNPの有意改善も報告された。
+  </p>
+  <p><u>AMBITION試験</u>：ERAとPDE-5阻害薬の初期併用療法が単剤療法より有効であることを示した国際多施設試験。</p>
 
-  <br>
-  <a href="/">戻る</a>
-</body>
-</html>
+{% elif group.startswith('第3群') %}
+  <h2>推奨治療</h2>
+  <p><strong>推奨文：</strong>基礎疾患の管理を最優先としつつ、以下の治療が検討される（CQ6: 推奨度B, CQ7: 推奨度C）。</p>
+  <ul>
+    <li>在宅酸素療法（SpO₂低下時）</li>
+    <li>吸入トレプロスチニル（ILD合併例に限り）</li>
+    <li>呼吸リハビリテーション</li>
+  </ul>
+  <p><strong>解説：</strong>第3群（肺疾患関連PH）では原疾患の治療が最優先であり、肺血管拡張薬の使用は換気血流ミスマッチのリスクから慎重な適応判断が求められる。</p>
+  <p><strong>臨床試験概要：</strong><br>
+    <u>INCREASE試験（トレプロスチニル）</u>：ILD合併PH患者326例において、吸入トレプロスチニル群はプラセボ群に比べ、16週時点で6MWDを有意に改善（+31m, p<0.001）し、NT-proBNP低下・機能分類改善・時間的複合エンドポイントでも有意差を示した。
+  </p>
+
+{% elif group == '第1群と第3群の鑑別が困難' %}
+  <h2>推奨治療</h2>
+  <p><strong>推奨文：</strong>PAHと肺疾患関連PHの両側面を考慮し、以下の治療を症例ごとに検討（CQ1, CQ2, CQ6）</p>
+  <ul>
+    <li>在宅酸素療法（SpO₂低下時）</li>
+    <li>吸入トレプロスチニル（ILD合併例）</li>
+    <li>ERA（アンブリセンタン）やPDE5阻害薬（リオシグアト）</li>
+    <li>呼吸リハビリテーション</li>
+  </ul>
+  <p><strong>解説：</strong>第1群・第3群の鑑別が困難な症例では、肺血管拡張薬の効果とリスクを慎重に評価しつつ、酸素療法や支持療法を組み合わせた個別化医療が推奨される。</p>
+  <p><strong>代表試験：</strong><br>
+    <u>AMBITION試験</u>：併用療法の有効性を示す。<br>
+    <u>INCREASE試験</u>：ILD合併例でのトレプロスチニル有効性。<br>
+    <u>PATENT試験（リオシグアト）</u>：6MWDおよびPVR改善を証明。
+  </p>
+
+{% elif group.startswith('第2群') %}
+  <h2>推奨治療</h2>
+  <p><strong>推奨文：</strong>左心不全の管理が最優先であり、肺血管拡張薬の使用は原則推奨されない（CQ5: 推奨度A）。</p>
+  <p><strong>解説：</strong>左心系疾患由来のPHでは、肺血管拡張薬が肺うっ血や左室前負荷を増悪させるため禁忌とされることが多い。心不全治療の最適化が本質的管理戦略。</p>
+
+{% elif group.startswith('第4群') %}
+  <h2>推奨治療</h2>
+  <p><strong>推奨文：</strong>慢性血栓塞栓性肺高血圧症（CTEPH）に対しては、手術または薬物療法（リオシグアト）が推奨される（CQ8: 推奨度A）。</p>
+  <ul>
+    <li>肺動脈血栓内膜剥離術（PEA）</li>
+    <li>バルーン肺動脈形成術（BPA）</li>
+    <li>リオシグアト（sGC刺激薬）</li>
+  </ul>
+  <p><strong>解説：</strong>CTEPHではPEAが根治的治療であるが、手術非適応例ではリオシグアトが唯一承認された選択肢。BPAも近年国内外で成績良好。</p>
+  <p><strong>臨床試験概要：</strong><br>
+    <u>CHEST-1試験（リオシグアト）</u>：非手術適応CTEPH患者261例で6MWD+46mの改善、PVR-226dyn、NT-proBNP改善、WHO機能分類も優れた成績。安全性も良好。
+  </p>
+
+{% else %}
+  <h2>推奨治療</h2>
+  <p>治療推奨の対象外または明確な方針がない分類です。</p>
+{% endif %}
