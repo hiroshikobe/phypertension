@@ -7,11 +7,12 @@
 <body>
   <h1>肺高血圧症 入力フォーム</h1>
   <form method="POST" action="/result">
+
     <h2>① 血行動態</h2>
-    mPAP: <input type="number" step="0.1" name="mpap" required><br>
-    PAWP: <input type="number" step="0.1" name="pawp" required><br>
-    CO: <input type="number" step="0.1" name="co" required><br>
-    CI: <input type="number" step="0.1" name="ci" required><br>
+    mPAP: <input type="number" step="0.1" name="mpap" required> mmHg<br>
+    PAWP: <input type="number" step="0.1" name="pawp" required> mmHg<br>
+    CO: <input type="number" step="0.1" name="co" required> L/min<br>
+    CI: <input type="number" step="0.1" name="ci" required> L/min/m²<br>
 
     <h2>② 肺機能検査</h2>
     %FVC: <input type="number" step="0.1" name="fvc" required><br>
@@ -28,24 +29,14 @@
     <input type="checkbox" name="ct_findings" value="肺動脈径拡張">肺動脈径拡張（主肺動脈径＞29mm or PA/Ao比＞1）<br>
     <input type="checkbox" name="ct_findings" value="すべて無し">すべて無し<br>
 
-    <h2>④ 心エコーとその他検査（空欄可）</h2>
-    TRV: <input type="number" step="0.1" name="trv"><br>
-    右室径: <input type="number" step="0.1" name="rv_diam"><br>
-    TAPSE: <input type="number" step="0.1" name="tapse"><br>
-    IVC径: <input type="number" step="0.1" name="ivc_diam"><br>
-    吸気時虚脱 <50%: <select name="ivc_collapsibility">
-      <option value="">未選択</option>
-      <option value="あり">あり</option>
-      <option value="なし">なし</option>
-    </select><br>
-    D-shape（短軸像）: <select name="d_shape">
-      <option value="">未選択</option>
-      <option value="あり">あり</option>
-      <option value="なし">なし</option>
-    </select><br>
+    <h2>④ 心エコー（自動計算対応）</h2>
+    IVC径（最大）: <input type="number" step="0.1" name="ivc_max"> mm<br>
+    IVC径（最小）: <input type="number" step="0.1" name="ivc_min"> mm<br>
+    TRPG: <input type="number" step="0.1" name="trpg"> mmHg<br>
+    TAPSE: <input type="number" step="0.1" name="tapse"> mm<br>
 
     <h2>NT-proBNP</h2>
-    <input type="number" name="ntprobnp"><br>
+    <input type="number" name="ntprobnp"> pg/mL<br>
 
     <h2>6分間歩行試験（6MWD）</h2>
     歩行距離(m): <input type="number" name="walk_distance"><br>
